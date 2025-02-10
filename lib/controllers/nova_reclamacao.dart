@@ -1,38 +1,13 @@
 import 'dart:convert';
 
-import 'package:aqui_oh_mobile/api.dart';
+import 'package:aqui_oh_mobile/repos/reclamacao.dart';
+import 'package:aqui_oh_mobile/views/nova_reclamacao.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 
-typedef OnCreate = void Function(
-    ({
-      String competeciaId,
-      DateTime createdAt,
-      String id,
-      String status,
-      String title,
-      DateTime updatedAt,
-      String userId
-    }) teste);
-
-class NovaReclamacaoDialog extends StatefulWidget {
-  final OnCreate onCreate;
-
-  const NovaReclamacaoDialog({super.key, required this.onCreate});
-
-  static void show(BuildContext context, OnCreate onCreate) {
-    showDialog(
-        context: context,
-        builder: (context) => NovaReclamacaoDialog(onCreate: onCreate));
-  }
-
-  @override
-  State<NovaReclamacaoDialog> createState() => _NovaReclamacaoDialogState();
-}
-
-class _NovaReclamacaoDialogState extends State<NovaReclamacaoDialog> {
+class NovaReclamacaoDialogState extends State<NovaReclamacaoDialog> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   Future<void>? imageFuture;
@@ -135,7 +110,7 @@ class _NovaReclamacaoDialogState extends State<NovaReclamacaoDialog> {
         ),
         TextButton(
           onPressed: () {
-            createReclamacao(
+            ReclamacaoRepo.createReclamacao(
                     title: titleController.text,
                     text: descriptionController.text,
                     image: image!,

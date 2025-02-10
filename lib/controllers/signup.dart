@@ -1,12 +1,8 @@
+import 'package:aqui_oh_mobile/repos/user.dart';
+import 'package:aqui_oh_mobile/views/signup.dart';
 import 'package:flutter/material.dart';
-import './api.dart';
 
-class SignupScreen extends StatefulWidget {
-  @override
-  _SignupScreenState createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
+class SignupScreenState extends State<SignupScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -17,7 +13,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
-        await signin(
+        await UserRepo.signin(
           name: _nameController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),

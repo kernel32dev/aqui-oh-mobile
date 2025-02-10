@@ -16,6 +16,8 @@ dependencies:
   jwt_decoder: ^2.0.1
   mime: ^2.0.0
   observable_ish: ^6.0.5
+  web_socket_channel: ^3.0.2
+  google_maps_flutter: ^2.10.0
 
 dev_dependencies:
   flutter_test:
