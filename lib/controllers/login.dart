@@ -1,4 +1,4 @@
-import 'package:aqui_oh_mobile/repos/user.dart';
+import 'package:aqui_oh_mobile/services/user.dart';
 import 'package:aqui_oh_mobile/views/login.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
-        await UserRepo.login(
+        await UserService.login(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );

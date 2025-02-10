@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:aqui_oh_mobile/repos/reclamacao.dart';
+import 'package:aqui_oh_mobile/services/reclamacao.dart';
 import 'package:aqui_oh_mobile/views/nova_reclamacao.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -110,7 +110,7 @@ class NovaReclamacaoDialogState extends State<NovaReclamacaoDialog> {
         ),
         TextButton(
           onPressed: () {
-            ReclamacaoRepo.createReclamacao(
+            ReclamacaoService.createReclamacao(
                     title: titleController.text,
                     text: descriptionController.text,
                     image: image!,

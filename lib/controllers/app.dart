@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:aqui_oh_mobile/models/user.dart';
-import 'package:aqui_oh_mobile/repos/api.dart';
+import 'package:aqui_oh_mobile/services/api.dart';
 import 'package:aqui_oh_mobile/views/app.dart';
 import 'package:aqui_oh_mobile/views/reclamacao.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +21,15 @@ class MyAppState extends State<MyApp> {
     super.initState();
     _secureStorage.read(key: "jwt_access").then((value) {
       if (value != null && value != "") {
-        globalAccessToken.value = value;
+        ApiService.globalAccessToken.value = value;
       }
     });
     _secureStorage.read(key: "jwt_refresh").then((value) {
       if (value != null && value != "") {
-        globalRefreshToken.value = value;
+        ApiService.globalRefreshToken.value = value;
       }
     });
-    _globalAccessTokenSubscription = globalAccessToken.listen((token) {
+    _globalAccessTokenSubscription = ApiService.globalAccessToken.listen((token) {
       final newGrants = User.parse(token);
       if (_user != newGrants) {
         setState(() {
@@ -38,7 +38,7 @@ class MyAppState extends State<MyApp> {
       }
       _secureStorage.write(key: "jwt_access", value: token);
     });
-    _globalRefreshTokenSubscription = globalRefreshToken.listen((token) {
+    _globalRefreshTokenSubscription = ApiService.globalRefreshToken.listen((token) {
       _secureStorage.write(key: "jwt_refresh", value: token);
     });
   }

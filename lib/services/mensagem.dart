@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aqui_oh_mobile/models/mensagem.dart';
-import 'package:aqui_oh_mobile/repos/api.dart';
+import 'package:aqui_oh_mobile/services/api.dart';
 
-class MensagemRepo {
+class MensagemService {
   final String url;
   final void Function(Mensagem message) onMessage;
   WebSocket? _socket;
@@ -14,7 +14,7 @@ class MensagemRepo {
   final int maxReconnectAttempts = 5;
   final Duration reconnectDelay = Duration(seconds: 3);
 
-  MensagemRepo(String reclamacaoId, this.onMessage): url = '${baseURL.replaceFirst("http", "ws")}/mensagem/$reclamacaoId?auth=Bearer ${globalAccessToken.value}' {
+  MensagemService(String reclamacaoId, this.onMessage): url = '${baseURL.replaceFirst("http", "ws")}/mensagem/$reclamacaoId?auth=Bearer ${ApiService.globalAccessToken.value}' {
     connect();
   }
 

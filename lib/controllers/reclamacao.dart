@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:aqui_oh_mobile/models/mensagem.dart';
 import 'package:aqui_oh_mobile/models/reclamacao.dart';
-import 'package:aqui_oh_mobile/repos/mensagem.dart';
-import 'package:aqui_oh_mobile/repos/reclamacao.dart';
+import 'package:aqui_oh_mobile/services/mensagem.dart';
+import 'package:aqui_oh_mobile/services/reclamacao.dart';
 import 'package:aqui_oh_mobile/views/reclamacao.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +11,18 @@ class ReclamacaoScreenState extends State<ReclamacaoScreen> {
   late Future<Reclamacao> getReclamacaoFuture;
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  late MensagemRepo _mensagensConnection;
+  late MensagemService _mensagensConnection;
   final List<Mensagem> _mensagens = [];
 
   @override
   void initState() {
     super.initState();
-    getReclamacaoFuture = ReclamacaoRepo.getReclamacao(widget.id)..then((x) {
+    getReclamacaoFuture = ReclamacaoService.getReclamacao(widget.id)..then((x) {
       setState(() {
         _title = x.title;
       });
     });
-    _mensagensConnection = MensagemRepo(widget.id, (mensagem) {
+    _mensagensConnection = MensagemService(widget.id, (mensagem) {
       setState(() {
         for (int i = 0; i < _mensagens.length; i++) {
           if (_mensagens[i].id == mensagem.id) {

@@ -1,4 +1,4 @@
-import 'package:aqui_oh_mobile/repos/user.dart';
+import 'package:aqui_oh_mobile/services/user.dart';
 import 'package:aqui_oh_mobile/views/signup.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
-        await UserRepo.signin(
+        await UserService.signin(
           name: _nameController.text.trim(),
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),

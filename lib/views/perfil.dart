@@ -1,5 +1,5 @@
 import 'package:aqui_oh_mobile/models/user.dart';
-import 'package:aqui_oh_mobile/repos/api.dart';
+import 'package:aqui_oh_mobile/services/api.dart';
 import 'package:flutter/material.dart';
 
 class PerfilScreen extends StatelessWidget {
@@ -23,8 +23,8 @@ class PerfilScreen extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                globalAccessToken.value = "";
-                globalRefreshToken.value = "";
+                ApiService.globalAccessToken.value = "";
+                ApiService.globalRefreshToken.value = "";
                 Navigator.of(context).popAndPushNamed('/login');
               },
               child: Text('Logout'))

@@ -1,6 +1,6 @@
-import 'package:aqui_oh_mobile/repos/api.dart';
+import 'package:aqui_oh_mobile/services/api.dart';
 
-class UserRepo {
+class UserService {
   static Future<void> signin({
     required String name,
     required String email,
@@ -11,11 +11,11 @@ class UserRepo {
       'email': email,
       'password': password,
     };
-    final response = await post('/signin', body);
+    final response = await ApiService.post('/signin', body);
     final tokenRefresh = response['token_refresh'] as String;
     final tokenAccess = response['token_access'] as String;
-    globalRefreshToken.value = tokenRefresh;
-    globalAccessToken.value = tokenAccess;
+    ApiService.globalRefreshToken.value = tokenRefresh;
+    ApiService.globalAccessToken.value = tokenAccess;
   }
 
   static Future<void> signoff({
@@ -26,9 +26,9 @@ class UserRepo {
       'email': email,
       'password': password,
     };
-    await post('/signoff', body);
-    globalAccessToken.value = "";
-    globalRefreshToken.value = "";
+    await ApiService.post('/signoff', body);
+    ApiService.globalAccessToken.value = "";
+    ApiService.globalRefreshToken.value = "";
   }
 
   static Future<void> login({
@@ -40,12 +40,12 @@ class UserRepo {
       'password': password,
       'competencia': false,
     };
-    final response = await post('/login', body);
+    final response = await ApiService.post('/login', body);
     print("token_refresh: ${response['token_refresh']}");
     print("token_access: ${response['token_access']}");
     final tokenRefresh = response['token_refresh'] as String;
     final tokenAccess = response['token_access'] as String;
-    globalRefreshToken.value = tokenRefresh;
-    globalAccessToken.value = tokenAccess;
+    ApiService.globalRefreshToken.value = tokenRefresh;
+    ApiService.globalAccessToken.value = tokenAccess;
   }
 }

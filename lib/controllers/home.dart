@@ -1,5 +1,5 @@
 import 'package:aqui_oh_mobile/models/reclamacao.dart';
-import 'package:aqui_oh_mobile/repos/reclamacao.dart';
+import 'package:aqui_oh_mobile/services/reclamacao.dart';
 import 'package:aqui_oh_mobile/views/home.dart';
 import 'package:aqui_oh_mobile/views/mapa.dart';
 import 'package:aqui_oh_mobile/views/nova_reclamacao.dart';
@@ -7,7 +7,7 @@ import 'package:aqui_oh_mobile/views/perfil.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreenState extends State<HomeScreen> {
-  var reclamacaoFuture = ReclamacaoRepo.listReclamacao();
+  var reclamacaoFuture = ReclamacaoService.listReclamacao();
 
   List<Reclamacao> list = [];
   Object? error;
@@ -23,7 +23,7 @@ class HomeScreenState extends State<HomeScreen> {
     setState(() {
       loading = true;
     });
-    ReclamacaoRepo.listReclamacao().then((x) {
+    ReclamacaoService.listReclamacao().then((x) {
       setState(() {
         list = x;
         error = null;

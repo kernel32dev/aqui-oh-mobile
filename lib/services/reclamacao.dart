@@ -1,10 +1,10 @@
 import 'package:aqui_oh_mobile/models/reclamacao.dart';
-import 'package:aqui_oh_mobile/repos/api.dart';
+import 'package:aqui_oh_mobile/services/api.dart';
 
-class ReclamacaoRepo {
+class ReclamacaoService {
   static Future<List<Reclamacao>> listReclamacao({String? title}) async {
     final queryParams = title != null ? {'title': title} : <String, dynamic>{};
-    final response = await get('/reclamacao', queryParams);
+    final response = await ApiService.get('/reclamacao', queryParams);
     return List.from(response).map(Reclamacao.cast).toList();
   }
 
@@ -24,12 +24,12 @@ class ReclamacaoRepo {
       'lat': lat,
       'lng': lng,
     };
-    final response = await post('/reclamacao', body);
+    final response = await ApiService.post('/reclamacao', body);
     return Reclamacao.cast(response);
   }
 
   static Future<Reclamacao> getReclamacao(String reclamacaoId) async {
-    final response = await get('/reclamacao/$reclamacaoId');
+    final response = await ApiService.get('/reclamacao/$reclamacaoId');
     return Reclamacao.cast(response);
   }
 
@@ -43,10 +43,10 @@ class ReclamacaoRepo {
     if (title != null) body['title'] = title;
     if (competeciaId != null) body['competeciaId'] = competeciaId;
     if (status != null) body['status'] = status;
-    await put('/reclamacao/$reclamacaoId', body);
+    await ApiService.put('/reclamacao/$reclamacaoId', body);
   }
 
   static Future<void> deleteReclamacao(String reclamacaoId) async {
-    await delete('/reclamacao/$reclamacaoId');
+    await ApiService.delete('/reclamacao/$reclamacaoId');
   }
 }
