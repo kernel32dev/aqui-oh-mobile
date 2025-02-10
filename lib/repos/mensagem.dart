@@ -2,38 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aqui_oh_mobile/models/mensagem.dart';
 import 'package:aqui_oh_mobile/repos/api.dart';
 
-class MensagemClient {
-  final String id;
-  final String text;
-  final DateTime dth;
-  final String? image;
-  final double? lat;
-  final double? lng;
-  final String userId;
-
-  const MensagemClient({
-    required this.id,
-    required this.text,
-    required this.dth,
-    required this.image,
-    required this.lat,
-    required this.lng,
-    required this.userId,
-  });
-}
-
-class MensagensClient {
+class MensagemRepo {
   final String url;
-  final void Function(MensagemClient message) onMessage;
+  final void Function(Mensagem message) onMessage;
   WebSocket? _socket;
   bool _isConnected = false;
   int _reconnectAttempts = 0;
   final int maxReconnectAttempts = 5;
   final Duration reconnectDelay = Duration(seconds: 3);
 
-  MensagensClient(String reclamacaoId, this.onMessage): url = '${baseURL.replaceFirst("http", "ws")}/mensagem/$reclamacaoId?auth=Bearer ${globalAccessToken.value}' {
+  MensagemRepo(String reclamacaoId, this.onMessage): url = '${baseURL.replaceFirst("http", "ws")}/mensagem/$reclamacaoId?auth=Bearer ${globalAccessToken.value}' {
     connect();
   }
 
@@ -56,15 +37,7 @@ class MensagensClient {
             if (map['type'] != "Mensagem") {
               return;
             }
-            onMessage(MensagemClient(
-              id: map['id'],
-              text: map['text'],
-              dth: DateTime.parse(map['dth']),
-              image: map['image'],
-              lat: map['lat'],
-              lng: map['lng'],
-              userId: map['userId'],
-            ));
+            onMessage(Mensagem.cast(map));
           },
           onDone: () {
             if (_socket != socket) return;

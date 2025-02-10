@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:aqui_oh_mobile/models/user.dart';
 import 'package:aqui_oh_mobile/repos/api.dart';
-import 'package:aqui_oh_mobile/repos/user.dart';
 import 'package:aqui_oh_mobile/views/app.dart';
 import 'package:aqui_oh_mobile/views/reclamacao.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class MyAppState extends State<MyApp> {
   final _secureStorage = const FlutterSecureStorage();
   StreamSubscription<String>? _globalAccessTokenSubscription;
   StreamSubscription<String>? _globalRefreshTokenSubscription;
-  UserGrants? _grants;
+  User? _user;
 
   @override
   void initState() {
@@ -30,10 +30,10 @@ class MyAppState extends State<MyApp> {
       }
     });
     _globalAccessTokenSubscription = globalAccessToken.listen((token) {
-      final newGrants = UserGrants.parse(token);
-      if (_grants != newGrants) {
+      final newGrants = User.parse(token);
+      if (_user != newGrants) {
         setState(() {
-          _grants = newGrants;
+          _user = newGrants;
         });
       }
       _secureStorage.write(key: "jwt_access", value: token);
@@ -59,16 +59,16 @@ class MyAppState extends State<MyApp> {
         if (uri.pathSegments.length == 2 && uri.pathSegments[0] == 'reclamacao') {
           final id = uri.pathSegments[1];
           return MaterialPageRoute(
-            builder: (context) => ReclamacaoScreen(id: id, user: _grants!,),
+            builder: (context) => ReclamacaoScreen(id: id, user: _user!,),
           );
         }
         return null;
       },
-      home: _grants == null ? LoginScreen() : HomeScreen(user: _grants!,),
+      home: _user == null ? LoginScreen() : HomeScreen(user: _user!,),
       routes: {
         '/login': (context) => LoginScreen(),
         '/signup': (context) => SignupScreen(),
-        '/home': (context) => HomeScreen(user: _grants!),
+        '/home': (context) => HomeScreen(user: _user!),
       },
       theme: ThemeData(
         // This is the theme of your application.

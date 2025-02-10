@@ -1,3 +1,4 @@
+import 'package:aqui_oh_mobile/models/reclamacao.dart';
 import 'package:aqui_oh_mobile/repos/reclamacao.dart';
 import 'package:aqui_oh_mobile/views/home.dart';
 import 'package:aqui_oh_mobile/views/mapa.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 class HomeScreenState extends State<HomeScreen> {
   var reclamacaoFuture = ReclamacaoRepo.listReclamacao();
 
-  List<ReclamacaoRecord> list = [];
+  List<Reclamacao> list = [];
   Object? error;
   bool loading = false;
   int _currentIndex = 1;
@@ -81,7 +82,7 @@ class HomeScreenState extends State<HomeScreen> {
     } else if (index == 1) {
       return buildBody();
     } else {
-      return Mapa(list);
+      return MapaScreen(list);
     }
   }
 

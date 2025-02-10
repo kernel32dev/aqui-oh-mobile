@@ -1,16 +1,18 @@
 import 'dart:convert';
+import 'package:aqui_oh_mobile/models/mensagem.dart';
+import 'package:aqui_oh_mobile/models/reclamacao.dart';
+import 'package:aqui_oh_mobile/repos/mensagem.dart';
 import 'package:aqui_oh_mobile/repos/reclamacao.dart';
-import 'package:aqui_oh_mobile/repos/web_socket.dart';
 import 'package:aqui_oh_mobile/views/reclamacao.dart';
 import 'package:flutter/material.dart';
 
 class ReclamacaoScreenState extends State<ReclamacaoScreen> {
   String _title = "";
-  late Future<ReclamacaoRecord> getReclamacaoFuture;
+  late Future<Reclamacao> getReclamacaoFuture;
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  late MensagensClient _mensagensConnection;
-  final List<MensagemClient> _mensagens = [];
+  late MensagemRepo _mensagensConnection;
+  final List<Mensagem> _mensagens = [];
 
   @override
   void initState() {
@@ -20,7 +22,7 @@ class ReclamacaoScreenState extends State<ReclamacaoScreen> {
         _title = x.title;
       });
     });
-    _mensagensConnection = MensagensClient(widget.id, (mensagem) {
+    _mensagensConnection = MensagemRepo(widget.id, (mensagem) {
       setState(() {
         for (int i = 0; i < _mensagens.length; i++) {
           if (_mensagens[i].id == mensagem.id) {
@@ -62,7 +64,7 @@ class ReclamacaoScreenState extends State<ReclamacaoScreen> {
             }));
   }
 
-  Widget _chat(ReclamacaoRecord reclamacao) {
+  Widget _chat(Reclamacao reclamacao) {
     final myUserId = widget.user.id;
     return Column(
       children: [

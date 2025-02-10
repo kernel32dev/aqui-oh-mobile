@@ -4,7 +4,7 @@ import 'package:aqui_oh_mobile/views/mapa.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapaState extends State<Mapa> {
+class MapaScreenState extends State<MapaScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
@@ -16,10 +16,13 @@ class MapaState extends State<Mapa> {
   @override
   Widget build(BuildContext context) {
     final markers = widget.list
-        .where((e) => e.mensagem != null)
+        .where((e) =>
+            e.mensagem != null &&
+            e.mensagem!.lat != null &&
+            e.mensagem!.lng != null)
         .map((e) => Marker(
             markerId: MarkerId(e.id),
-            position: LatLng(e.mensagem!.lat, e.mensagem!.lng),
+            position: LatLng(e.mensagem!.lat!, e.mensagem!.lng!),
             infoWindow: InfoWindow(title: e.title)))
         .toSet();
     if (markers.isEmpty) {

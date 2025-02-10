@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:observable_ish/observable_ish.dart';
 
-// const String baseURL = 'http://192.168.18.249/api';
 const String baseURL = 'https://aqui-oh.app-pratico.com.br/api';
 
 RxValue<String> globalAccessToken = RxValue("");

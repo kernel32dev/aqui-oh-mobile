@@ -1,9 +1,9 @@
+import 'package:aqui_oh_mobile/models/user.dart';
 import 'package:aqui_oh_mobile/repos/api.dart';
-import 'package:aqui_oh_mobile/repos/user.dart';
 import 'package:flutter/material.dart';
 
 class PerfilScreen extends StatelessWidget {
-  final UserGrants user;
+  final User user;
   const PerfilScreen({super.key, required this.user});
 
   @override

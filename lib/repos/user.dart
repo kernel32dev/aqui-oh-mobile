@@ -1,28 +1,4 @@
 import 'package:aqui_oh_mobile/repos/api.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-
-class UserGrants {
-  final String id;
-  final String email;
-  final String name;
-  const UserGrants({
-    required this.id,
-    required this.email,
-    required this.name,
-  });
-  static UserGrants? parse(String token) {
-    try {
-      final map = JwtDecoder.decode(token);
-      return UserGrants(
-        id: map['id'],
-        email: map['email'],
-        name: map['name'],
-      );
-    } catch (e) {
-      return null;
-    }
-  }
-}
 
 class UserRepo {
   static Future<void> signin({
